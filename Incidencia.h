@@ -8,17 +8,13 @@
 using namespace std;
 class Incidencia {
 private:
-    string idEquipo;
-    string severidad;
-    int diaReporte;
+    int grado;
     bool activa;
 public:
-    Incidencia(const string& id, const string & severidad, const int& diaReporte);
+    Incidencia(const int& grado);
 
-    string getIdEquipo();
-    string getSeveridad();
-    int getDiaReporte();
-    bool getActiva();
+    int getGrado() const;
+    bool getActiva()const;
 
     void resolver();
 

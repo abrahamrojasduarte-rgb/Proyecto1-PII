@@ -4,26 +4,16 @@
 
 #include "Incidencia.h"
 
-inline Incidencia::Incidencia(const string &id, const string &severidad, const int &diaReporte) {
-    this->idEquipo = id;
-    this->severidad = severidad;
-    this->diaReporte = diaReporte;
+Incidencia::Incidencia(const int &grado) {
+    this->grado = grado;
     activa = true;
 }
 
-inline string Incidencia::getIdEquipo() {
-    return this->idEquipo;
+int Incidencia::getGrado() const {
+    return grado;
 }
 
-inline string Incidencia::getSeveridad() {
-    return this->severidad;
-}
-
-inline int Incidencia::getDiaReporte() {
-    return this->diaReporte;
-}
-
-inline bool Incidencia::getActiva() {
+inline bool Incidencia::getActiva()const {
     return this->activa;
 }
 
