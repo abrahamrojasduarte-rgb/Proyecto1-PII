@@ -35,7 +35,9 @@ void Equipo::reparar() {
 double Equipo::calcularPrioridad() const {
     int activas = 0;
     for (const auto& inc : incidencias) {
-        if (inc.getActiva()) activas++;
+        if (inc.getActiva()) {
+            activas++;
+        }
     }
     return (criticidad * 0.5) + (activas * 0.3) + (tiempoInactivo * 0.2);
 }

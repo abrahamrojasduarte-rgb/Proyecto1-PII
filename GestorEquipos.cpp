@@ -6,6 +6,7 @@
 
 #include <iostream>
 using namespace std;
+#include "GestorEquipos.h"
 
 GestorEquipos::GestorEquipos() {}
 

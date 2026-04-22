@@ -18,8 +18,6 @@ public:
     vector<Equipo*>& getEquipos();
     void mostrarEquipos();
 
-
-
 };
 
 

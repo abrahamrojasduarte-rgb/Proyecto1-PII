@@ -13,10 +13,10 @@ int Incidencia::getGrado() const {
     return grado;
 }
 
-inline bool Incidencia::getActiva()const {
+bool Incidencia::getActiva()const {
     return this->activa;
 }
 
-inline void Incidencia::resolver() {
+void Incidencia::resolver() {
     activa = false;
 }
