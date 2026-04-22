@@ -1,0 +1,26 @@
+//
+// Created by josti on 21/4/2026.
+//
+
+
+
+#include <iostream>
+using namespace std;
+
+GestorEquipos::GestorEquipos() {}
+
+void GestorEquipos::crearEquipo(int criticidad, int estado, vector<Incidencia> incidencias) {
+    Equipo* nuevo=new Equipo(criticidad, estado, incidencias);
+    equipos.push_back(nuevo);
+}
+
+vector<Equipo *> & GestorEquipos::getEquipos() {
+    return equipos;
+}
+
+void GestorEquipos::mostrarEquipos() {
+    int i = 1;
+    for (auto e : equipos) {
+        cout<<"Equipo # "<<i++<<" Criticidad: "<<e->calcularPrioridad()<< endl;;
+    }
+}
