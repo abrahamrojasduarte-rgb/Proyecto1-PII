@@ -14,14 +14,22 @@ private:
     int estado;
     int tiempoInactivo;
     bool reparado;
+    string id;
     vector<Incidencia> incidencias;
 
 public:
     Equipo(int c, int e, vector<Incidencia> iniciales);
+    ~Equipo(){};
+
+    void mantenimiento();
 
     void degradarDia();
     void reparar();
+
+    int getEstado()const;
+    int getIncidenciasActivas()const;
     double calcularPrioridad() const;
+    string getId()const;
 };
 
 

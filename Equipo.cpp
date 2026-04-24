@@ -33,11 +33,33 @@ void Equipo::reparar() {
 }
 
 double Equipo::calcularPrioridad() const {
+    int activas = getIncidenciasActivas();
+    return (criticidad * 0.5) + (activas * 0.3) + (tiempoInactivo * 0.2);
+}
+int Equipo::getEstado() const {
+    return estado;
+}
+int Equipo::getIncidenciasActivas() const {
     int activas = 0;
     for (const auto& inc : incidencias) {
         if (inc.getActiva()) {
             activas++;
         }
     }
-    return (criticidad * 0.5) + (activas * 0.3) + (tiempoInactivo * 0.2);
+    return activas;
+}
+
+string Equipo::getId() const {
+    return id;
+}
+
+void Equipo::mantenimiento() {
+    for (auto& inc : incidencias) {
+        if (inc.getActiva()) {
+            inc.resolver();
+        }
+    }
+    estado = 100;
+    tiempoInactivo = 0;
+    reparado = true;
 }

@@ -22,6 +22,10 @@ vector<Equipo *> & GestorEquipos::getEquipos() {
 void GestorEquipos::mostrarEquipos() {
     int i = 1;
     for (auto e : equipos) {
-        cout<<"Equipo # "<<i++<<" Criticidad: "<<e->calcularPrioridad()<< endl;;
+        cout << "Equipo # " << i++
+             << " Prioridad: " << e->calcularPrioridad()
+             << " Estado: " << e->getEstado()
+             << " Incidencias activas: " << e->getIncidenciasActivas()
+             << endl;
     }
 }
