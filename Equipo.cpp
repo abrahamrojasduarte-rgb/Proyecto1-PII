@@ -4,10 +4,10 @@
 
 #include "Equipo.h"
 
-Equipo::Equipo(int c, int e, vector<Incidencia> iniciales) {
+Equipo::Equipo(string id, int c, int e) {
+    this->id = id;
     this->criticidad = c;
     this->estado = e;
-    this->incidencias = iniciales;
     this->tiempoInactivo = 0;
     this->reparado = false;
 }
@@ -62,4 +62,7 @@ void Equipo::mantenimiento() {
     estado = 100;
     tiempoInactivo = 0;
     reparado = true;
+}
+bool Equipo::estaReparado() {
+    return reparado;
 }

@@ -1,9 +1,36 @@
 #include <iostream>
+#include <vector>
+#include "Equipo.h"
+#include "RegistroCompleto.h"
+#include "RegistroReparados.h"
 
-// TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+using namespace std;
+
 int main() {
 
+    vector<Equipo*> equipos;
+
+    // Crear equipos de prueba
+    Equipo* e1 = new Equipo("EQ-1", 5, 50);
+    Equipo* e2 = new Equipo("EQ-2", 8, 70);
+    Equipo* e3 = new Equipo("EQ-3", 3, 40);
+
+    // Simular mantenimiento en uno
+    e2->mantenimiento(); // este queda reparado
+
+    equipos.push_back(e1);
+    equipos.push_back(e2);
+    equipos.push_back(e3);
+
+    // Crear registros
+    Registro* reg1 = new registroCompleto();
+    Registro* reg2 = new registroReparados();
+
+    // Guardar día de prueba
+    reg1->guardar(1, equipos);
+    reg2->guardar(1, equipos);
+
+    cout << "Archivos generados correctamente." << endl;
 
     return 0;
-    // TIP See CLion help at <a href="https://www.jetbrains.com/help/clion/">jetbrains.com/help/clion/</a>. Also, you can try interactive lessons for CLion by selecting 'Help | Learn IDE Features' from the main menu.
 }

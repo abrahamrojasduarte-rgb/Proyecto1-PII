@@ -14,7 +14,7 @@ private:
     vector<Equipo*>equipos;
 public:
     GestorEquipos();
-    void crearEquipo(int criticidad, int estado, vector<Incidencia> incidencias);
+    void crearEquipo(string id, int criticidad, int estado) ;
     vector<Equipo*>& getEquipos();
     void mostrarEquipos();
 
