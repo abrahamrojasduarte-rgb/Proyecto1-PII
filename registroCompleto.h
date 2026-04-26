@@ -8,7 +8,7 @@
 
 class registroCompleto : public Registro {
 public:
-    void guardar(int dia, vector<Equipo*>& equipos) const override;
+    void guardar(int dia, vector<Equipo*>& equipos) const  override;
 };
 
 

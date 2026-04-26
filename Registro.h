@@ -10,7 +10,7 @@
 using namespace std;
 class Registro {
 public:
-    virtual void guardar(int dia, vector<Equipo*>& equipos) const = 0;
+    virtual void guardar(int dia, vector<Equipo*>& equipos) const  = 0;
 };
 
 

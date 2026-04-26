@@ -6,7 +6,7 @@
 void registroReparados::guardar(int dia, vector<Equipo*>& equipos)const {
     ofstream file("registro_reparados.txt", ios::binary);
     if (!file) {
-        cout << "Error creando archivo" << endl;
+        cout << "Error creando archivo " << endl;
     }
     file << "Dia " << dia << "\n";
 
