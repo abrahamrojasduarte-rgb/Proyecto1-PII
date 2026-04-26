@@ -8,4 +8,8 @@ add_executable(Proyecto1_PII main.cpp
         Incidencia.h
         GestorEquipos.cpp
         GestorEquipos.h
-        Equipo.cpp)
+        Equipo.cpp
+        registroCompleto.cpp
+        Registro.cpp
+        registroReparados.cpp
+        Simulador.cpp)

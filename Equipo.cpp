@@ -4,7 +4,7 @@
 
 #include "Equipo.h"
 
-Equipo::Equipo(string id, int c, int e) {
+Equipo::Equipo(int id, int c, int e) {
     this->id = id;
     this->criticidad = c;
     this->estado = e;
@@ -49,7 +49,7 @@ int Equipo::getIncidenciasActivas() const {
     return activas;
 }
 
-string Equipo::getId() const {
+int Equipo::getId() const {
     return id;
 }
 
