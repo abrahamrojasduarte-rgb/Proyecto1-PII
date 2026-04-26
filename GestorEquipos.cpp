@@ -10,8 +10,8 @@ using namespace std;
 
 GestorEquipos::GestorEquipos() {}
 
-void GestorEquipos::crearEquipo(int criticidad, int estado, vector<Incidencia> incidencias) {
-    Equipo* nuevo=new Equipo(criticidad, estado, incidencias);
+void GestorEquipos::crearEquipo(string id, int criticidad, int estado) {
+    Equipo* nuevo = new Equipo(id, criticidad, estado);
     equipos.push_back(nuevo);
 }
 
