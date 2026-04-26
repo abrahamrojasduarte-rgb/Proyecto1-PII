@@ -12,9 +12,11 @@ class Simulador {
 private:
     GestorEquipos& gestor;
     int dias;
+
     public:
     Simulador(GestorEquipos& g);
     void ejecutar();
+
 private:
     void simularDia(int dia);
     void ordenarEquipos(vector<Equipo*>& equipos, int izquierda, int derecha);

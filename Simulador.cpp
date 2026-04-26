@@ -21,9 +21,11 @@ void Simulador::ejecutar() {
 
 void Simulador::simularDia(int dia) {
     vector<Equipo*>& equipos = gestor.getEquipos();
+
     for (auto e : equipos) {
         e->degradarDia();
     }
+
     if (!equipos.empty()) {
         ordenarEquipos(equipos,0,equipos.size()-1);
     }
@@ -34,6 +36,7 @@ void Simulador::simularDia(int dia) {
     } else {
         limite = 3;
     }
+
     cout<<" Prioridad: "<<endl;
     for (int i = 0; i < limite; i++) {
         cout<<" Equipo "<<i+1
@@ -56,6 +59,7 @@ void Simulador::ordenarEquipos(vector<Equipo *> &equipos, int izquierda, int der
     if (izquierda >= derecha) {
         return;
     }
+
     int medio = (izquierda + derecha) / 2;
     ordenarEquipos(equipos, izquierda, medio);
     ordenarEquipos(equipos, medio+1, derecha);
@@ -68,12 +72,15 @@ void Simulador::combinarEquipos(vector<Equipo *> &equipos, int izquierda, int me
     int n2= derecha-medio;
     vector<Equipo*> izquierdaVec(n1);
     vector<Equipo*> derechaVec(n2);
+
     for (int i = 0; i < n1; i++) {
         izquierdaVec[i] = equipos[izquierda+i];
     }
+
     for (int j = 0; j < n2; j++) {
         derechaVec[j] = equipos[medio+1+j];
     }
+
     int i=0, j=0, k=izquierda;
 
     while (i < n1 && j < n2) {
