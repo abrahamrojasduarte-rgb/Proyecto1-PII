@@ -7,31 +7,40 @@
 #include <iostream>
 #include <vector>
 #include "Incidencia.h"
+#include "Mantenimiento.h"
 using namespace std;
+class Mantenimiento;
+
 class Equipo {
 private:
     int criticidad;
-    int estado;
     int tiempoInactivo;
     bool reparado;
     int id;
+    double prioridad;
+
     vector<Incidencia> incidencias;
+    Mantenimiento* mantenimiento;
 
 public:
-    Equipo(int id, int c, int e);
-    ~Equipo(){};
+    Equipo(int id, int c);
+    ~Equipo(){}
 
-    void mantenimiento();
-
+    void mantenimientoEquipo();
     void degradarDia();
     void reparar();
 
-    int getEstado()const;
-    int getIncidenciasActivas()const;
+    void agregarIncidencia(Incidencia inc);
+
+    int getIncidenciasActivas() const;
     double calcularPrioridad() const;
-    int getId()const;
+    int getId() const;
     bool estaReparado();
 
+    void setPrioridad(double p);
+    double getPrioridad() const;
+
+    void asignarMantenimiento(Mantenimiento* m);
 };
 
 

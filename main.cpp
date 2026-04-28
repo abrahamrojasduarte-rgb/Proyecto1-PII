@@ -9,32 +9,12 @@
 using namespace std;
 
 int main() {
-    // 🔹 Inicializar números aleatorios
-    srand(time(0));
-
-    // 🔹 Crear gestor
     GestorEquipos gestor;
 
-    // 🔹 Crear incidencias de prueba
-    vector<Incidencia> inc1;
-    inc1.push_back(Incidencia(3));
-    inc1.push_back(Incidencia(2));
+    gestor.generarEquiposAleatorios(100); // 🔥 ahora aquí
 
-    vector<Incidencia> inc2;
-    inc2.push_back(Incidencia(5));
-
-    // 🔹 Crear equipos
-    gestor.crearEquipo(9, 70, 4);
-    gestor.crearEquipo(6, 80, 6);
-    gestor.crearEquipo(8, 60, {});
-    gestor.crearEquipo(5, 90, {});
-    gestor.crearEquipo(7, 50, {});
-
-    // 🔹 Crear simulador
-    Simulador simulador(gestor);
-
-    // 🔹 Ejecutar simulación
-    simulador.ejecutar();
+    Simulador sim(gestor);
+    sim.ejecutar();
 
     return 0;
 }

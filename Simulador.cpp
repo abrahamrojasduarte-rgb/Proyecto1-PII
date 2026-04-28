@@ -5,6 +5,8 @@
 #include "Simulador.h"
 #include <iostream>
 
+#include "Mantenimiento.h"
+
 using namespace std;
 
 Simulador::Simulador(GestorEquipos &g) : gestor(g) {
@@ -39,15 +41,20 @@ void Simulador::simularDia(int dia) {
 
     cout<<" Prioridad: "<<endl;
     for (int i = 0; i < limite; i++) {
-        cout<<" Equipo "<<i+1
+        cout<< "Id del Equipo "<< equipos[i]->getId()<<endl
         <<"  Prioridad: "<<equipos[i]->calcularPrioridad()
-        <<"  Estado: "<<equipos[i]->getEstado()
         <<"  Incidencias: "<<equipos[i]->getIncidenciasActivas()<<endl;
     }
 
     for (int i = 0; i < limite; i++) {
-        equipos[i]->mantenimiento();
+        Mantenimiento* m = new Mantenimiento();
+
+        equipos[i]->asignarMantenimiento(m);
+        m->ejecutar();
+
+        delete m;
     }
+
 
     cout<<"\nEstado general despues de mantenimiento:"<<endl;
     gestor.mostrarEquipos();

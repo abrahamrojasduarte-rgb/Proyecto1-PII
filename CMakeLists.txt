@@ -12,4 +12,6 @@ add_executable(Proyecto1_PII main.cpp
         registroCompleto.cpp
         Registro.cpp
         registroReparados.cpp
-        Simulador.cpp)
+        Simulador.cpp
+        Mantenimiento.cpp
+        Mantenimiento.h)

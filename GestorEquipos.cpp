@@ -7,12 +7,14 @@
 #include <iostream>
 using namespace std;
 #include "GestorEquipos.h"
+#include <ctime>
 
-GestorEquipos::GestorEquipos() {}
+GestorEquipos::GestorEquipos() {
+    srand(time(nullptr));
+}
 
-void GestorEquipos::crearEquipo(int id, int criticidad, int estado) {
-    Equipo* nuevo = new Equipo(id, criticidad, estado);
-    equipos.push_back(nuevo);
+void GestorEquipos::crearEquipo(int id, int criticidad) {
+    equipos.push_back(new Equipo(id, criticidad));
 }
 
 vector<Equipo *> & GestorEquipos::getEquipos() {
@@ -22,10 +24,29 @@ vector<Equipo *> & GestorEquipos::getEquipos() {
 void GestorEquipos::mostrarEquipos() {
     int i = 1;
     for (auto e : equipos) {
-        cout << "Equipo # " << i++
+        cout << "Id del equipo: " << e->getId() << endl
              << " Prioridad: " << e->calcularPrioridad()
-             << " Estado: " << e->getEstado()
              << " Incidencias activas: " << e->getIncidenciasActivas()
              << endl;
+    }
+}
+
+void GestorEquipos::distribuirIncidencias() {
+    int total = 300;
+
+    for (int i = 0; i < total; i++) {
+        int index = rand() % equipos.size();
+        int sev = 1 + rand() % 5;
+
+        equipos[index]->agregarIncidencia(Incidencia(sev));
+    }
+}
+
+void GestorEquipos::generarEquiposAleatorios(int cantidad) {
+
+    for (int i = 1; i <= cantidad; i++) {
+        int criticidad = rand() % 10 + 1;
+
+        crearEquipo(i, criticidad);
     }
 }
