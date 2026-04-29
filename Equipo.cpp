@@ -4,12 +4,12 @@
 
 #include "Equipo.h"
 
-Equipo::Equipo(string id, int c, int e) {
+Equipo::Equipo(int id, int c) {
     this->id = id;
     this->criticidad = c;
-    this->estado = e;
     this->tiempoInactivo = 0;
     this->reparado = false;
+    this->mantenimiento = nullptr;
 }
 
 void Equipo::degradarDia() {
@@ -20,7 +20,6 @@ void Equipo::degradarDia() {
             incidencias.push_back(Incidencia(gradoAleatorio));
         }
     }
-    estado -= 1;
     tiempoInactivo++;
 }
 
@@ -28,7 +27,6 @@ void Equipo::reparar() {
     for (auto& inc : incidencias) {
         inc.resolver();
     }
-    estado = 100;
     tiempoInactivo = 0;
     reparado = true;
 }
@@ -37,9 +35,7 @@ double Equipo::calcularPrioridad() const {
     int activas = getIncidenciasActivas();
     return (criticidad * 0.5) + (activas * 0.3) + (tiempoInactivo * 0.2);
 }
-int Equipo::getEstado() const {
-    return estado;
-}
+
 int Equipo::getIncidenciasActivas() const {
     int activas = 0;
     for (const auto& inc : incidencias) {
@@ -50,20 +46,30 @@ int Equipo::getIncidenciasActivas() const {
     return activas;
 }
 
-string Equipo::getId() const {
+int Equipo::getId() const {
     return id;
 }
 
-void Equipo::mantenimiento() {
-    for (auto& inc : incidencias) {
-        if (inc.getActiva()) {
-            inc.resolver();
-        }
-    }
-    estado = 100;
-    tiempoInactivo = 0;
-    reparado = true;
+void Equipo::mantenimientoEquipo() {
+    reparar();
 }
 bool Equipo::estaReparado() {
     return reparado;
+}
+
+void Equipo::setPrioridad(double p) {
+    prioridad = p;
+}
+
+double Equipo::getPrioridad() const {
+    return prioridad;
+}
+
+void Equipo::asignarMantenimiento(Mantenimiento* m) {
+    mantenimiento = m;
+    m->setEquipo(this);
+}
+
+void Equipo::agregarIncidencia(Incidencia inc) {
+    incidencias.push_back(inc);
 }

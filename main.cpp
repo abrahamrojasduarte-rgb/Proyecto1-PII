@@ -1,9 +1,20 @@
 #include <iostream>
+#include <vector>
+#include <cstdlib>   // rand, srand
+#include <ctime>     // time
 
-// TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+#include "GestorEquipos.h"
+#include "Simulador.h"
+
+using namespace std;
+
 int main() {
+    GestorEquipos gestor;
 
+    gestor.generarEquiposAleatorios(100); // 🔥 ahora aquí
+
+    Simulador sim(gestor);
+    sim.ejecutar();
 
     return 0;
-    // TIP See CLion help at <a href="https://www.jetbrains.com/help/clion/">jetbrains.com/help/clion/</a>. Also, you can try interactive lessons for CLion by selecting 'Help | Learn IDE Features' from the main menu.
 }

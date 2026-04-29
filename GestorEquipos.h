@@ -14,10 +14,13 @@ private:
     vector<Equipo*>equipos;
 public:
     GestorEquipos();
-    void crearEquipo(string id, int criticidad, int estado) ;
-    vector<Equipo*>& getEquipos();
-    void mostrarEquipos();
 
+    void crearEquipo(int id, int criticidad);
+    void generarEquiposAleatorios(int cant);
+    vector<Equipo*>& getEquipos();
+
+    void mostrarEquipos();
+    void distribuirIncidencias();
 };
 
 
