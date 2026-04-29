@@ -7,86 +7,9 @@
 #include "registroCompleto.h"
 #include "registroReparados.h"
 #include "Registro.h"
+#include <fstream>
 using namespace std;
 
-// Menu::Menu(Simulador &sim, GestorEquipos &gest): simulador(sim), gestor(gest) {
-//     diaActual = 1;
-// }
-//
-// void Menu::iniciar() {
-//     int opcion;
-//
-//     do {
-//         mostrarOpciones();
-//         cin >> opcion;
-//
-//         switch (opcion) {
-//             case 1:
-//                 cout << "\n==== Dia " << diaActual << " ====\n";
-//                 simulador.simularDia(diaActual);
-//                 diaActual++;
-//
-//                 cout << "\nPresione Enter para continuar...";
-//                 cin.ignore();
-//                 cin.get();
-//                 break;
-//
-//             case 2: {
-//                 auto& equipos = gestor.getEquipos();
-//
-//                 cout << "\nTop 3 equipos (no reparados):\n";
-//
-//                 int mostrados = 0;
-//                 for (auto e : equipos) {
-//                     if (!e->estaReparado()) {
-//                         cout << "ID: " << e->getId()
-//                              << " | Prioridad: " << e->calcularPrioridad()
-//                              << " | Incidencias: " << e->getIncidenciasActivas()
-//                              << endl;
-//
-//                         mostrados++;
-//                         if (mostrados == 3) break;
-//                     }
-//                 }
-//
-//                 if (mostrados == 0) {
-//                     cout << "Todos los equipos estan reparados.\n";
-//                 }
-//                 cout << "\nPresione Enter para continuar...";
-//                 cin.ignore();
-//                 cin.get();
-//                 break;
-//             }
-//
-//             case 3:
-//                 cout << "\nTodos los equipos (los primeros 5 para evitar mostrar los 100)\n";
-//                 gestor.mostrarEquipos(3);
-//
-//                 cout << "\nPresione Enter para continuar...";
-//                 cin.ignore();
-//                 cin.get();
-//                 break;
-//
-//             case 4:
-//                 cout << "Saliendo.\n";
-//                 break;
-//
-//             default:
-//                 cout << "Opcion invalida\n";
-//         }
-//
-//     } while (opcion != 4);
-// }
-//
-// void Menu::mostrarOpciones() {
-//     cout << "===== MENU =====" << endl;
-//     cout << "1. Avanzar un dia" << endl;
-//     cout << "2. Ver top 3 equipos" << endl;
-//     cout << "3. Ver todos los equipos" << endl;
-//     cout << "4. Salir" << endl;
-//     cout << "Seleccione una opcion: ";
-// }
-#include <iostream>
 #include <ctime>
 
 using namespace std;
@@ -107,7 +30,8 @@ void Menu::mostrarMenu() {
     cout << "1. Generar equipos\n";
     cout << "2. Mostrar equipos\n";
     cout << "3. Ejecutar simulacion\n";
-    cout << "4. Salir\n";
+    cout << "4. Ver registro de reparados\n";
+    cout << "5. Salir\n";
     cout << "Opcion: ";
 }
 
@@ -135,6 +59,10 @@ void Menu::iniciar() {
                 break;
 
             case 4:
+                leerReparados();;
+                break;
+
+            case 5:
                 cout << "Saliendo...\n";
                 break;
 
@@ -174,4 +102,28 @@ void Menu::ejecutarSimulacion() {
 
         r->guardar(30, equipos);
     }
+}
+
+void Menu::leerReparados() {
+
+    ifstream file("registro_reparados.txt");
+
+    if (!file) {
+        cout << "No se pudo abrir el archivo.\n";
+        return;
+    }
+
+    cout << "\n===== REGISTRO DE REPARADOS =====\n";
+
+    string linea;
+
+    while (getline(file, linea)) {
+        cout << linea << endl;
+    }
+
+    file.close();
+
+    cout << "\nPresione Enter para continuar...";
+    cin.ignore();
+    cin.get();
 }

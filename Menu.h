@@ -10,24 +10,6 @@
 #include "Registro.h"
 using namespace std;
 
-// class Menu {
-// private:
-//     Simulador& simulador;
-//     GestorEquipos& gestor;
-//     vector<Registro*> registros;
-//     int diaActual;
-// public:
-//     Menu(Simulador& sim, GestorEquipos& gest);
-//     void iniciar();
-//
-//
-//     void mostrarMenu();
-//     void generarDatos();
-//     void ejecutarSimulacion();
-//     void mostrarEquipos();
-// private:
-//     void mostrarOpciones();
-// };
 class Menu {
 private:
     GestorEquipos gestor;
@@ -41,6 +23,7 @@ public:
     void mostrarMenu();
     void iniciar();
 
+    void leerReparados();
     void generarDatos();
     void ejecutarSimulacion();
     void mostrarEquipos();
