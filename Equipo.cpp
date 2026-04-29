@@ -13,6 +13,7 @@ Equipo::Equipo(string id, int c, int e) {
 }
 
 void Equipo::degradarDia() {
+    reparado = false;
     if (!reparado) {
         if (rand() % 100 < 20) {
             int gradoAleatorio = 1 + rand() % 5;

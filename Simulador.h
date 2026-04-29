@@ -7,14 +7,16 @@
 #include<vector>
 #include"Equipo.h"
 #include "GestorEquipos.h"
+#include "Registro.h"
 
 class Simulador {
 private:
     GestorEquipos& gestor;
     int dias;
+    Registro* registro;
 
     public:
-    Simulador(GestorEquipos& g);
+    Simulador(GestorEquipos& g, Registro* r);
     void ejecutar();
 
 private:
