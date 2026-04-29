@@ -43,7 +43,7 @@ void Simulador::simularDia(int dia) {
         if (!equipos[i]->estaReparado()) {
             cout << " Equipo " << mostrados+1
                  << "  Prioridad: " << equipos[i]->calcularPrioridad()
-                 << "  Estado: " << equipos[i]->getEstado()
+            //     << "  Estado: " << equipos[i]->getEstado()
                  << "  Incidencias: " << equipos[i]->getIncidenciasActivas() << endl;
             mostrados++;
         }
@@ -51,12 +51,12 @@ void Simulador::simularDia(int dia) {
     int atendidos = 0;
     for (int i = 0; i < equipos.size() && atendidos < 3; i++) {
         if (!equipos[i]->estaReparado()) {
-            equipos[i]->mantenimiento();
+            equipos[i]->mantenimientoEquipo();
             atendidos++;
         }
     }
     cout<<"\nEstado general despues de mantenimiento:"<<endl;
-    gestor.mostrarEquipos();
+    gestor.mostrarEquipos(6);
 
     if (registro !=nullptr) {
     registro->guardar(dia,equipos);

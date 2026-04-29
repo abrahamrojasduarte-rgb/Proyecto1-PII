@@ -18,9 +18,10 @@ private:
     public:
     Simulador(GestorEquipos& g, Registro* r);
     void ejecutar();
+    void simularDia(int dia);
 
 private:
-    void simularDia(int dia);
+
     void ordenarEquipos(vector<Equipo*>& equipos, int izquierda, int derecha);
     void combinarEquipos(vector<Equipo*>& equipos, int izquierda, int medio, int derecha);
 };

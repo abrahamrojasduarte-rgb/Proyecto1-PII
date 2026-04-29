@@ -21,13 +21,16 @@ vector<Equipo *> & GestorEquipos::getEquipos() {
     return equipos;
 }
 
-void GestorEquipos::mostrarEquipos() {
-    int i = 1;
+void GestorEquipos::mostrarEquipos(int limite) {
+    int i = 0;
     for (auto e : equipos) {
-        cout << "Id del equipo: " << e->getId() << endl
-             << " Prioridad: " << e->calcularPrioridad()
+        if (i >= limite) break;
+
+        cout << "Id del equipo: " << e->getId() << endl;
+        cout << " Prioridad: " << e->calcularPrioridad()
              << " Incidencias activas: " << e->getIncidenciasActivas()
              << endl;
+        i++;
     }
 }
 

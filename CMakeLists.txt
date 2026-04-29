@@ -14,4 +14,6 @@ add_executable(Proyecto1_PII main.cpp
         registroReparados.cpp
         Simulador.cpp
         Mantenimiento.cpp
-        Mantenimiento.h)
+        Mantenimiento.h
+        Menu.cpp
+        Menu.h)
