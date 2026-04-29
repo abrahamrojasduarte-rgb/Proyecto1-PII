@@ -12,19 +12,23 @@
 class Simulador {
 private:
     GestorEquipos& gestor;
-    int dias;
-    Registro* registro;
 
-    public:
-    Simulador(GestorEquipos& g, Registro* r);
-    void ejecutar();
+    int dias;
+    int diaActual;
+
+    vector<Equipo*> seleccionados;
+
     void simularDia(int dia);
 
-private:
+    void ordenarEquipos(vector<Equipo*>& equipos,int izquierda,int derecha);
 
-    void ordenarEquipos(vector<Equipo*>& equipos, int izquierda, int derecha);
-    void combinarEquipos(vector<Equipo*>& equipos, int izquierda, int medio, int derecha);
+    void combinarEquipos(vector<Equipo*>& equipos,int izquierda,int medio,int derecha);
+
+public:
+    Simulador(GestorEquipos& g);
+
+    void ejecutar();
+
+    void mostrarSeleccionados();
 };
-
-
 #endif //MAIN_CPP_SIMULADOR_H

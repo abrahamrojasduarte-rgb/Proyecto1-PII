@@ -4,7 +4,7 @@
 
 #include "registroCompleto.h"
 void registroCompleto::guardar(int dia, vector<Equipo*>& equipos)const  {
-    ofstream file("registro_completo.txt", ios::binary);
+    ofstream file("registro_completo.txt", ios::app);
     if (!file) {
         cout << "Error creando archivo" << endl;
     }

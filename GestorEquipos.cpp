@@ -5,6 +5,7 @@
 
 
 #include <iostream>
+#include <sstream>
 using namespace std;
 #include "GestorEquipos.h"
 #include <ctime>
@@ -21,7 +22,7 @@ vector<Equipo *> & GestorEquipos::getEquipos() {
     return equipos;
 }
 
-void GestorEquipos::mostrarEquipos(int limite) {
+void GestorEquipos::mostrarEquiposL(int limite) {
     int i = 0;
     for (auto e : equipos) {
         if (i >= limite) break;
@@ -32,6 +33,38 @@ void GestorEquipos::mostrarEquipos(int limite) {
              << endl;
         i++;
     }
+}
+
+void GestorEquipos::mostrarEquipos() {
+
+    if (equipos.empty()) {
+        cout << "No hay equipos registrados\n";
+        return;
+    }
+
+    cout << "\n====== EQUIPOS ======\n";
+
+    for (Equipo* e : equipos) {
+
+        cout << "ID: " << e->getId()
+             << " | Criticidad: " << e->getCriticidad()
+             << " | Incidencias activas: "
+             << e->getIncidenciasActivas()
+             << " | Tiempo inactivo: "
+             << e->getTiempoInactivo()
+             << " | Prioridad: "
+             << e->getPrioridad();
+
+        if (e->estaReparado()) {
+            cout << " | REPARADO";
+        } else {
+            cout << " | DANADO";
+        }
+
+        cout << endl;
+    }
+
+    cout << "======================\n";
 }
 
 void GestorEquipos::distribuirIncidencias() {

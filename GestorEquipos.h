@@ -19,7 +19,8 @@ public:
     void generarEquiposAleatorios(int cant);
     vector<Equipo*>& getEquipos();
 
-    void mostrarEquipos(int limite);
+    void mostrarEquiposL(int limite);
+    void mostrarEquipos();
     void distribuirIncidencias();
 };
 

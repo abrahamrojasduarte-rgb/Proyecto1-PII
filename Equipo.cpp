@@ -73,3 +73,12 @@ void Equipo::asignarMantenimiento(Mantenimiento* m) {
 void Equipo::agregarIncidencia(Incidencia inc) {
     incidencias.push_back(inc);
 }
+
+int Equipo::getCriticidad() const {
+
+    return criticidad;
+}
+
+int Equipo::getTiempoInactivo() const {
+    return tiempoInactivo;
+}

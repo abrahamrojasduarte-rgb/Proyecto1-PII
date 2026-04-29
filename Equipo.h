@@ -40,6 +40,8 @@ public:
     void setPrioridad(double p);
     double getPrioridad() const;
 
+    int getCriticidad() const;
+    int getTiempoInactivo() const;
     void asignarMantenimiento(Mantenimiento* m);
 };
 

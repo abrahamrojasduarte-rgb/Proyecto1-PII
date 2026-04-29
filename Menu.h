@@ -7,18 +7,43 @@
 
 #include "Simulador.h"
 #include "GestorEquipos.h"
+#include "Registro.h"
 using namespace std;
 
+// class Menu {
+// private:
+//     Simulador& simulador;
+//     GestorEquipos& gestor;
+//     vector<Registro*> registros;
+//     int diaActual;
+// public:
+//     Menu(Simulador& sim, GestorEquipos& gest);
+//     void iniciar();
+//
+//
+//     void mostrarMenu();
+//     void generarDatos();
+//     void ejecutarSimulacion();
+//     void mostrarEquipos();
+// private:
+//     void mostrarOpciones();
+// };
 class Menu {
 private:
-    Simulador& simulador;
-    GestorEquipos& gestor;
-    int diaActual;
+    GestorEquipos gestor;
+    Simulador* simulador;
+
+    vector<Registro*> registros;
+
 public:
-    Menu(Simulador& sim, GestorEquipos& gest);
+    Menu();
+
+    void mostrarMenu();
     void iniciar();
-private:
-    void mostrarOpciones();
+
+    void generarDatos();
+    void ejecutarSimulacion();
+    void mostrarEquipos();
 };
 
 
