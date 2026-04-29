@@ -14,14 +14,14 @@ Equipo::Equipo(int id, int c) {
 
 void Equipo::degradarDia() {
     reparado = false;
-    if (!reparado) {
         if (rand() % 100 < 20) {
             int gradoAleatorio = 1 + rand() % 5;
             incidencias.push_back(Incidencia(gradoAleatorio));
         }
-    }
     tiempoInactivo++;
-}
+    }
+
+
 
 void Equipo::reparar() {
     for (auto& inc : incidencias) {

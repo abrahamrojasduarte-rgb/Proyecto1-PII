@@ -7,7 +7,7 @@
 
 using namespace std;
 
-Simulador::Simulador(GestorEquipos &g) : gestor(g) {
+Simulador::Simulador(GestorEquipos &g, Registro* r) : gestor(g), registro(r) {
     dias=30;
 }
 
@@ -38,20 +38,29 @@ void Simulador::simularDia(int dia) {
     }
 
     cout<<" Prioridad: "<<endl;
-    for (int i = 0; i < limite; i++) {
-        cout<<" Equipo "<<i+1
-        <<"  Prioridad: "<<equipos[i]->calcularPrioridad()
-        <<"  Estado: "<<equipos[i]->getEstado()
-        <<"  Incidencias: "<<equipos[i]->getIncidenciasActivas()<<endl;
+    int mostrados = 0;
+    for (int i = 0; i < equipos.size() && mostrados < 3; i++) {
+        if (!equipos[i]->estaReparado()) {
+            cout << " Equipo " << mostrados+1
+                 << "  Prioridad: " << equipos[i]->calcularPrioridad()
+                 << "  Estado: " << equipos[i]->getEstado()
+                 << "  Incidencias: " << equipos[i]->getIncidenciasActivas() << endl;
+            mostrados++;
+        }
     }
-
-    for (int i = 0; i < limite; i++) {
-        equipos[i]->mantenimiento();
+    int atendidos = 0;
+    for (int i = 0; i < equipos.size() && atendidos < 3; i++) {
+        if (!equipos[i]->estaReparado()) {
+            equipos[i]->mantenimiento();
+            atendidos++;
+        }
     }
-
     cout<<"\nEstado general despues de mantenimiento:"<<endl;
     gestor.mostrarEquipos();
 
+    if (registro !=nullptr) {
+    registro->guardar(dia,equipos);
+}
     }
 
 
@@ -84,12 +93,25 @@ void Simulador::combinarEquipos(vector<Equipo *> &equipos, int izquierda, int me
     int i=0, j=0, k=izquierda;
 
     while (i < n1 && j < n2) {
-        if (izquierdaVec[i]->calcularPrioridad() > derechaVec[j]->calcularPrioridad()) {
+        bool izqReparado = izquierdaVec[i]->estaReparado();
+        bool derReparado = derechaVec[j]->estaReparado();
+
+        if (!izqReparado && derReparado) {
             equipos[k] = izquierdaVec[i];
             i++;
-        }else {
+        }
+        else if (izqReparado && !derReparado) {
             equipos[k] = derechaVec[j];
             j++;
+        }
+        else {
+            if (izquierdaVec[i]->calcularPrioridad() > derechaVec[j]->calcularPrioridad()) {
+                equipos[k] = izquierdaVec[i];
+                i++;
+            } else {
+                equipos[k] = derechaVec[j];
+                j++;
+            }
         }
         k++;
     }
@@ -98,6 +120,7 @@ void Simulador::combinarEquipos(vector<Equipo *> &equipos, int izquierda, int me
         i++;
         k++;
     }
+
     while (j < n2) {
         equipos[k] = derechaVec[j];
         j++;
