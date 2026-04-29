@@ -13,13 +13,19 @@ Equipo::Equipo(int id, int c) {
 }
 
 void Equipo::degradarDia() {
-    reparado = false;
-        if (rand() % 100 < 20) {
-            int gradoAleatorio = 1 + rand() % 5;
-            incidencias.push_back(Incidencia(gradoAleatorio));
-        }
-    tiempoInactivo++;
+    if (reparado) {
+        return;
     }
+
+    if (rand() % 100 < 20) {
+
+        incidencias.push_back(
+            Incidencia(rand() % 5 + 1)
+        );
+    }
+
+    tiempoInactivo++;
+}
 
 
 
@@ -32,6 +38,9 @@ void Equipo::reparar() {
 }
 
 double Equipo::calcularPrioridad() const {
+    if (reparado) {
+        return -1;
+    }
     int activas = getIncidenciasActivas();
     return (criticidad * 0.5) + (activas * 0.3) + (tiempoInactivo * 0.2);
 }

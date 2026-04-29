@@ -103,7 +103,7 @@ Menu::Menu() {
 
 void Menu::mostrarMenu() {
 
-    cout << "\n===== MENU =====\n";
+    cout << "\n-/-/-/-/-/Menu/-/-/-/-\n";
     cout << "1. Generar equipos\n";
     cout << "2. Mostrar equipos\n";
     cout << "3. Ejecutar simulacion\n";
@@ -166,9 +166,7 @@ void Menu::ejecutarSimulacion() {
 
     for (Registro* r : registros) {
 
-        // 🔥 DOWNCASTING
-        registroCompleto* rc =
-            dynamic_cast<registroCompleto*>(r);
+        registroCompleto* rc =dynamic_cast<registroCompleto*>(r);
 
         if (rc) {
             cout << "Registro completo ejecutado\n";

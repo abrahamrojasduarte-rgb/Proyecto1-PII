@@ -153,9 +153,9 @@ void Simulador::ejecutar() {
 
         int opcion;
 
-        cout << "\n=========================\n";
-        cout << "        DIA " << diaActual << endl;
-        cout << "=========================\n";
+        cout << "\n-/-/-/-/-/-/-/-/-/-/-/-/-/-/-\n";
+        cout << "             DIA " << diaActual << endl;
+        cout << "-/-/-/-/-/-/-/-/-/-/-/-/-/-/-\n";
 
         cout << "1. Ver equipos a reparar\n";
         cout << "2. Ejecutar mantenimiento del dia\n";
@@ -218,7 +218,6 @@ void Simulador::simularDia(int dia) {
     vector<Equipo*>& equipos =
         gestor.getEquipos();
 
-    // 🔥 degradacion diaria
     for (Equipo* e : equipos) {
 
         e->degradarDia();
@@ -228,14 +227,12 @@ void Simulador::simularDia(int dia) {
         );
     }
 
-    // 🔥 ordenar
     ordenarEquipos(
         equipos,
         0,
         equipos.size() - 1
     );
 
-    // 🔥 seleccionar top 3
     int limite =
         min(3, (int)equipos.size());
 
@@ -249,7 +246,7 @@ void Simulador::simularDia(int dia) {
 
 void Simulador::mostrarSeleccionados() {
 
-    cout << "\n===== EQUIPOS A REPARAR =====\n";
+    cout << "\nEquipos que se van a reparar\n";
 
     for (Equipo* e : seleccionados) {
 
@@ -264,8 +261,6 @@ void Simulador::mostrarSeleccionados() {
 
              << endl;
     }
-
-    cout << "=============================\n";
 }
 
 void Simulador::ordenarEquipos(
