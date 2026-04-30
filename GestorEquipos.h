@@ -22,6 +22,8 @@ public:
     void mostrarEquiposL(int limite);
     void mostrarEquipos();
     void distribuirIncidencias();
+    Equipo* buscarPorId(int id);
+
 };
 
 

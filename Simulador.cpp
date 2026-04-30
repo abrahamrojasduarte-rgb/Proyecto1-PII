@@ -18,7 +18,6 @@ void Simulador::ejecutar() {
     gestor.distribuirIncidencias();
 
     while (diaActual <= dias) {
-
         int opcion;
 
         cout << "\n-/-/-/-/-/-/-/-/-/-/-/-/-/-/-\n";
@@ -37,7 +36,7 @@ void Simulador::ejecutar() {
         switch (opcion) {
 
             case 1:
-                simularDia(diaActual);
+                previsualizarDia();
                 mostrarSeleccionados();
                 break;
 
@@ -176,4 +175,14 @@ void Simulador::combinarEquipos(vector<Equipo*>& equipos,int izquierda,int medio
 
 void Simulador::setRegistro(Registro* r) {
     this->registro  = r;
+}
+void Simulador::previsualizarDia() {
+    seleccionados.clear();
+    vector<Equipo*>& equipos = gestor.getEquipos();
+    for (Equipo* e : equipos) {
+        e->setPrioridad(e->calcularPrioridad());
+    }
+    ordenarEquipos(equipos, 0, equipos.size() - 1);
+    int limite = min(3, (int)equipos.size());
+    for (int i = 0; i < limite; i++) seleccionados.push_back(equipos[i]);
 }

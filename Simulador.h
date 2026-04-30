@@ -27,5 +27,6 @@ public:
     void ejecutar();
     void mostrarSeleccionados();
     void setRegistro(Registro* r);
+    void previsualizarDia();
 };
 #endif //MAIN_CPP_SIMULADOR_H

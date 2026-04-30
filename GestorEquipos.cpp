@@ -10,6 +10,9 @@
 using namespace std;
 #include "GestorEquipos.h"
 #include <ctime>
+#include "FormatoInvalidoException.h"
+#include "ArchivoInvalidoException.h"
+
 
 GestorEquipos::GestorEquipos() {
     srand(time(nullptr));
@@ -102,4 +105,17 @@ void GestorEquipos::generarEquiposAleatorios(int cantidad) {
         << "-/-/-/-/-/-/-/-/-/-/-/-\n";
 
     file.close();
+}
+
+Equipo *GestorEquipos::buscarPorId(int id) {
+    int izq = 0;
+    int der = equipos.size() - 1;
+    while (izq <= der) {
+        int medio = (izq + der) / 2;
+        int idMedio = equipos[medio]->getId();
+        if (idMedio == id) return equipos[medio];
+        if (idMedio < id) izq = medio + 1;
+        else der = medio - 1;
+    }
+    return nullptr;
 }

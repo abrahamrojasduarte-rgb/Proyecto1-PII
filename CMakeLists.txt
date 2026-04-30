@@ -16,4 +16,14 @@ add_executable(Proyecto1_PII main.cpp
         Mantenimiento.cpp
         Mantenimiento.h
         Menu.cpp
-        Menu.h)
+        Menu.h
+        Excepciones.h
+        FormatoInvalidoException.cpp
+        FormatoInvalidoException.h
+        Excepciones.cpp
+        ArchivoInvalidoException.cpp
+        ArchivoInvalidoException.h
+        OperacionInconsistenteException.cpp
+        OperacionInconsistenteException.h
+
+)

@@ -19,14 +19,17 @@ private:
 
 public:
     Menu();
+    ~Menu();
 
     void mostrarMenu();
     void iniciar();
 
+    int leerOpcion();
     void leerReparados();
     void generarDatos();
     void ejecutarSimulacion();
     void mostrarEquipos();
+    void buscarEquipo();
 };
 
 

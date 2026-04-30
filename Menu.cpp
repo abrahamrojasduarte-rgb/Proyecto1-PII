@@ -8,27 +8,48 @@
 #include "registroReparados.h"
 #include "Registro.h"
 #include <fstream>
-using namespace std;
-
+#include "FormatoInvalidoException.h"
+#include "ArchivoInvalidoException.h"
 #include <ctime>
-
+#include "Excepciones.h"
+#include "OperacionInconsistenteException.h"
 using namespace std;
 
 Menu::Menu() {
     srand(time(nullptr));
     simulador = new Simulador(gestor);
-    simulador->setRegistro(new registroReparados());
+    registros.push_back(new registroCompleto());
+    registros.push_back(new registroReparados());
+    simulador->setRegistro(registros[0]);
+}
+
+Menu::~Menu() {
+    for (Registro* r : registros) {
+        delete r;
+    }
+    delete simulador;
 }
 
 void Menu::mostrarMenu() {
-
-    cout << "\n-/-/-/-/-/Menu/-/-/-/-\n";
+    cout << "\n-/-/-/-/-/ MENU /-/-/-/-/-/-\n";
     cout << "1. Generar equipos\n";
     cout << "2. Mostrar equipos\n";
-    cout << "3. Ejecutar simulacion\n";
-    cout << "4. Ver registro de reparados\n";
-    cout << "5. Salir\n";
+    cout << "3. Buscar equipo por ID (busqueda binaria)\n";
+    cout << "4. Seleccionar estrategia de registro\n";
+    cout << "5. Ejecutar simulacion\n";
+    cout << "6. Ver registro de reparados\n";
+    cout << "7. Salir\n";
     cout << "Opcion: ";
+}
+
+int Menu::leerOpcion() {
+    int opcion;
+    cin>>opcion;
+    if (opcion>100||opcion<0) {
+        cout<<"Invalido";
+        return false;
+    }
+    return opcion;
 }
 
 void Menu::iniciar() {
@@ -36,37 +57,38 @@ void Menu::iniciar() {
     int opcion;
 
     do {
-
         mostrarMenu();
-        cin >> opcion;
+        opcion = leerOpcion();
 
-        switch (opcion) {
+        try {
+            switch (opcion) {
+                case 1: generarDatos(); break;
+                case 2: mostrarEquipos(); break;
+                case 3: buscarEquipo(); break;
+                case 4: {
+                    cout << "1. registroCompleto  2. registroReparados\nOpcion: ";
+                    int op = opcion;
+                    if (op == 1) {
+                        simulador->setRegistro(registros[0]);
+                    }else if (op == 2) {
+                        simulador->setRegistro(registros[1]);
+                    }
+                    else throw FormatoInvalidoException("estrategia no valida");
 
-            case 1:
-                generarDatos();
-                break;
-
-            case 2:
-                mostrarEquipos();
-                break;
-
-            case 3:
-                ejecutarSimulacion();
-                break;
-
-            case 4:
-                leerReparados();;
-                break;
-
-            case 5:
-                cout << "Saliendo...\n";
-                break;
-
-            default:
-                cout << "Opcion invalida\n";
+                    registroCompleto* rc = dynamic_cast<registroCompleto*>(registros[op-1]);
+                    if (rc) cout << "Estrategia: registroCompleto (reporte global)\n";
+                    else cout << "Estrategia: registroReparados (solo reparados)\n";
+                    break;
+                }
+                case 5: ejecutarSimulacion(); break;
+                case 6: leerReparados(); break;
+                case 7: cout << "Saliendo...\n"; break;
+                default: cout << "Opcion invalida\n";
+            }
+        } catch (const exception& e) {
+            cout << "[ERROR] " << e.what() << endl;
         }
-
-    } while (opcion != 5);
+    } while (opcion != 7);
 }
 
 void Menu::generarDatos() {
@@ -83,40 +105,48 @@ void Menu::mostrarEquipos() {
 }
 
 void Menu::ejecutarSimulacion() {
+    if (gestor.getEquipos().empty()) {
+        throw OperacionInconsistenteException("debe generar equipos primero");
+    }
+
+    ofstream limpiar("registro_completo.txt");
+    limpiar.close();
 
     simulador->ejecutar();
 
     vector<Equipo*>& equipos = gestor.getEquipos();
-
+    cout << "\nGenerando reportes finales con todas las estrategias...\n";
     for (Registro* r : registros) {
-
-        registroCompleto* rc =dynamic_cast<registroCompleto*>(r);
-
-        if (rc) {
-            cout << "Registro completo ejecutado\n";
-        }
-
+        registroCompleto* rc = dynamic_cast<registroCompleto*>(r);
+        if (rc) cout << "-> Ejecutando registroCompleto\n";
+        else cout << "-> Ejecutando registroReparados\n";
         r->guardar(30, equipos);
     }
 }
 
 void Menu::leerReparados() {
     ifstream file("registro_reparados.txt");
-
     if (!file) {
-        cout << "No existe archivo:(\n";
+        throw ArchivoInvalidoException("registro_reparados.txt no existe");
+    }
+    string linea;
+    cout << "\nEquipos reparados:\n";
+    while (getline(file, linea)) cout << linea << endl;
+    cout << "-/-/-/-/-/-/-/-/-/-/-\n";
+    file.close();
+}
+void Menu::buscarEquipo() {
+    if (gestor.getEquipos().empty()) {
+        throw OperacionInconsistenteException("no hay equipos generados");
+    }
+    cout << "ID a buscar: ";
+    int id = leerOpcion();
+    Equipo* e = gestor.buscarPorId(id);
+    if (!e) {
+        cout << "Equipo no encontrado\n";
         return;
     }
-
-    string linea;
-
-    cout << "\n Equipos reparados :)\n";
-
-    while (getline(file, linea)) {
-        cout << linea << endl;
-    }
-
-    cout << "-/-/-/-/-/-/-/-/-/-/-\n";
-
-    file.close();
+    cout << "Encontrado -> ID: " << e->getId()
+         << " | Criticidad: " << e->getCriticidad()
+         << " | Incidencias: " << e->getIncidenciasActivas() << "\n";
 }
