@@ -6,6 +6,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <fstream>
 using namespace std;
 #include "GestorEquipos.h"
 #include <ctime>
@@ -79,10 +80,26 @@ void GestorEquipos::distribuirIncidencias() {
 }
 
 void GestorEquipos::generarEquiposAleatorios(int cantidad) {
+    ofstream file("registro_completo.txt");
 
-    for (int i = 1; i <= cantidad; i++) {
-        int criticidad = rand() % 10 + 1;
+    if (!file) {
 
-        crearEquipo(i, criticidad);
+        cout << "Error creando archivo\n";
+        return;
     }
+    for (int i = 1; i <= 100; i++) {
+
+        int criticidad =1 + rand() % 10;
+
+        Equipo* nuevo =new Equipo(i,criticidad);
+
+        equipos.push_back(nuevo);
+
+        file<< "Equipo ID: "<< nuevo->getId()<< " | Criticidad: "<< criticidad<< "\n";
+    }
+
+    file
+        << "-/-/-/-/-/-/-/-/-/-/-/-\n";
+
+    file.close();
 }

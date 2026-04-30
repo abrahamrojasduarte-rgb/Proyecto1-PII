@@ -14,8 +14,7 @@ Simulador::Simulador(GestorEquipos& g): gestor(g) {
 void Simulador::ejecutar() {
     ofstream limpiar("registro_reparados.txt");
     limpiar.close();
-    // ofstream limpiar1("registro_completo.txt");
-    // limpiar.close();
+
     gestor.distribuirIncidencias();
 
     while (diaActual <= dias) {
