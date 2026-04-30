@@ -8,7 +8,6 @@ void registroCompleto::guardar(int dia, vector<Equipo*>& equipos)const  {
     if (!file) {
         cout << "Error creando archivo" << endl;
     }
-    file << "Dia " << dia << "\n";
 
     for (Equipo*& e : equipos){
         if (!e->estaReparado()) {

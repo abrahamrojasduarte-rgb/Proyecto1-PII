@@ -15,13 +15,9 @@ using namespace std;
 using namespace std;
 
 Menu::Menu() {
-
     srand(time(nullptr));
-
     simulador = new Simulador(gestor);
-
-    registros.push_back(new registroCompleto());
-    registros.push_back(new registroReparados());
+    simulador->setRegistro(new registroReparados());
 }
 
 void Menu::mostrarMenu() {
@@ -70,7 +66,7 @@ void Menu::iniciar() {
                 cout << "Opcion invalida\n";
         }
 
-    } while (opcion != 4);
+    } while (opcion != 5);
 }
 
 void Menu::generarDatos() {
@@ -105,25 +101,22 @@ void Menu::ejecutarSimulacion() {
 }
 
 void Menu::leerReparados() {
-
     ifstream file("registro_reparados.txt");
 
     if (!file) {
-        cout << "No se pudo abrir el archivo.\n";
+        cout << "No existe archivo:(\n";
         return;
     }
 
-    cout << "\n===== REGISTRO DE REPARADOS =====\n";
-
     string linea;
+
+    cout << "\n Equipos reparados :)\n";
 
     while (getline(file, linea)) {
         cout << linea << endl;
     }
 
-    file.close();
+    cout << "-/-/-/-/-/-/-/-/-/-/-\n";
 
-    cout << "\nPresione Enter para continuar...";
-    cin.ignore();
-    cin.get();
+    file.close();
 }

@@ -4,16 +4,19 @@
 
 #include "registroReparados.h"
 void registroReparados::guardar(int dia, vector<Equipo*>& equipos)const {
-    ofstream file("registro_reparados.txt", ios::app);
+    ofstream file("registro_reparados.txt",ios::app);
+
     if (!file) {
-        cout << "Error creando archivo" << endl;
+        cout << "Error creando archivo\n";
+        return;
     }
+
     file << "Dia " << dia << "\n";
+    for (Equipo* e : equipos) {
 
-    for (Equipo*& e : equipos){
-        if (e->estaReparado())
-            file << "Reparado: " << e->getId() << "\n";
+        file<< "Equipo "<< e->getId()<<". Reparado: " "\n";
     }
 
-    file << "----------------\n";
+    file<< "-/-/-/-/-//-/-/\n";
+    file.close();
 }
