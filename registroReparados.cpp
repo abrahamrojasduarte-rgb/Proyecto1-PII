@@ -7,20 +7,17 @@
 #include "registroReparados.h"
 void registroReparados::guardar(int dia, vector<Equipo*>& equipos)const {
     ofstream file("registro_reparados.txt", ios::app);
-
     if (!file) {
-        throw ArchivoInvalidoException("no se pudo abrir registro_reparados.txt");
+        throw ArchivoInvalidoException(" no se pudo abrir reparados.txt");
     }
-
     file << "Dia " << dia << "\n";
-    for (Equipo* e : equipos) {
+
+    for (Equipo*& e : equipos){
         if (e->estaReparado()) {
-            file << "Equipo " << e->getId()
-                 << " | Criticidad: " << e->getCriticidad()
-                 << " | Estado: REPARADO\n";
+            file << "Reparado: " << e->getId() << "\n";
         }
     }
 
-    file << "-/-/-/-/-//-/-/\n";
+    file << "-/-/-/-/-/-/-/-/-/-\n";
     file.close();
-    }
+}

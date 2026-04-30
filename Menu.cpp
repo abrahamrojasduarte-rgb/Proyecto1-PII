@@ -67,7 +67,8 @@ void Menu::iniciar() {
                 case 3: buscarEquipo(); break;
                 case 4: {
                     cout << "1. registroCompleto  2. registroReparados\nOpcion: ";
-                    int op = opcion;
+                    int op;
+                    cin >> op;
                     if (op == 1) {
                         simulador->setRegistro(registros[0]);
                     }else if (op == 2) {
@@ -105,12 +106,15 @@ void Menu::mostrarEquipos() {
 }
 
 void Menu::ejecutarSimulacion() {
+
     if (gestor.getEquipos().empty()) {
         throw OperacionInconsistenteException("debe generar equipos primero");
     }
 
     ofstream limpiar("registro_completo.txt");
     limpiar.close();
+    ofstream limpiar2("registro_reparados.txt");
+    limpiar2.close();
 
     simulador->ejecutar();
 
@@ -131,7 +135,9 @@ void Menu::leerReparados() {
     }
     string linea;
     cout << "\nEquipos reparados:\n";
-    while (getline(file, linea)) cout << linea << endl;
+    while (getline(file, linea)) {
+        cout << linea << endl;
+    }
     cout << "-/-/-/-/-/-/-/-/-/-/-\n";
     file.close();
 }

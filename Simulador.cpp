@@ -50,6 +50,7 @@ void Simulador::ejecutar() {
                     e->asignarMantenimiento(m);
                     m->ejecutar();
                     delete m;
+                    e->setReparado(true);
                 }
                 if (registro) {
                     registro->guardar(diaActual,seleccionados);

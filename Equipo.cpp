@@ -91,3 +91,7 @@ int Equipo::getCriticidad() const {
 int Equipo::getTiempoInactivo() const {
     return tiempoInactivo;
 }
+
+void Equipo::setReparado(bool l) {
+    this -> reparado = l;
+}

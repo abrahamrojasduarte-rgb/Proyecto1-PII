@@ -39,6 +39,7 @@ public:
 
     void setPrioridad(double p);
     double getPrioridad() const;
+    void setReparado(bool);
 
     int getCriticidad() const;
     int getTiempoInactivo() const;
